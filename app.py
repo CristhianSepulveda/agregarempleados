@@ -9,7 +9,7 @@ DB_CONFIG = {
     'user': 'root',
     'password': 'xxxx',
     'database': 'empleado',
-    "port":"xxxx"
+    "port":"3307"
 }
 print(DB_CONFIG)
 
@@ -24,6 +24,47 @@ def get_db_connection():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/formularioeliminar')
+def formularioeliminar():
+    return render_template('formularioeliminar.html')
+
+@app.route('/eliminar_empleado', methods=['POST'])
+def eliminar_empleado():
+    id_empleado = request.form.get('idEmpleado')
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM empleados WHERE id = %s", (id_empleado,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return redirect(url_for('index'))
+
+
+
+
+@app.route("/formularioagregar")
+def formularioagregar():
+    return render_template("formularioagregar.html")
+
+
+@app.route("/formulariolistar")
+def formulariolistar():
+    return render_template("formulariolistar.html")
+
+
+@app.route("/formularioactualizar")
+def formularioactualizar():
+    return render_template("formularioactualizar.html")
+
+
+@app.route("/formulariobuscar")
+def formulariobuscar():
+    return render_template("formulariobuscar.html")
+
+
+
+
 
 
 if __name__ == '__main__':

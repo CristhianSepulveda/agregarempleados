@@ -8,37 +8,40 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
+    <script>
+        function abrirFormulario() {
+            window.open("formularioeliminar", "_blank");
+        }
+
+        function abrirformularioagregar() {
+            window.open("formularioagregar", "_blank");
+        }
+
+        function abrirformularioactualizar() {
+            window.open("formularioactualizar", "_blank");
+        }
+
+        
+        function abrirformulariolistar() {
+            window.open("formulariolistar", "_blank");
+        }
+
+        function abrirformulariobuscar() {
+            window.open("formulariobuscar", "_blank");
+        }
+    </script>
+   
 </head>
 <body>
     <h1>Página de Inicio</h1>
     <p>¡Bienvenido a nuestra aplicación de gestión de empleados!</p>
 
-    <button id="agregarEmpleadoBtn"><i class="fas fa-user-plus"></i> Agregar Empleado</button>
-    <button id="listarEmpleadosBtn"><i class="fas fa-list"></i> Listar Empleados</button>
-    <button id="buscarEmpleadoBtn"><i class="fas fa-search"></i> Buscar Empleado</button>
-    <button id="actualizarEmpleadoBtn"><i class="fas fa-edit"></i> Actualizar Empleado</button>
-    <button id="eliminarEmpleadoBtn"><i class="fas fa-trash-alt"></i> Eliminar Empleado</button>
-    
-    <script>
-        document.getElementById("agregarEmpleadoBtn").addEventListener("click", function() {
-            window.open("agregar_empleado", "_blank", "width=600,height=400");
-        });
+    <button onclick="abrirformularioagregar()"><i class="fas fa-user-plus"></i> Agregar Empleado</button>
+    <button onclick="abrirformulariolistar()"><i class="fas fa-list"></i> Listar Empleados</button>
+    <button onclick="abrirformulariobuscar()"><i class="fas fa-search"></i> Buscar Empleado</button>
+    <button onclick="abrirformularioactualizar()"><i class="fas fa-edit"></i> Actualizar Empleado</button>
+    <button onclick = "abrirFormulario()"><i class="fas fa-trash-alt"></i> Eliminar Empleado</button>
 
-        document.getElementById("listarEmpleadosBtn").addEventListener("click", function() {
-             window.open("listar_empleados", "_blank", "width=600,height=400");
-        });
-
-        document.getElementById("buscarEmpleadoBtn").addEventListener("click", function() {
-            window.open("templates/buscar_empleado.html", "_blank");
-        });
-
-        document.getElementById("actualizarEmpleadoBtn").addEventListener("click", function() {
-            window.location.href = "actualizar_empleado";
-        });
-
-        document.getElementById("eliminarEmpleadoBtn").addEventListener("click", function() {
-            window.location.href = "eliminar_empleado";
-        });
-    </script>
+  
 </body>
 </html>
