@@ -8,6 +8,40 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h1, p {
+            text-align: center;
+            color: #333;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
     <script>
         function abrirFormulario() {
             window.open("formularioeliminar", "_blank");
@@ -21,7 +55,6 @@
             window.open("formularioactualizar", "_blank");
         }
 
-        
         function abrirformulariolistar() {
             window.open("formulariolistar", "_blank");
         }
@@ -30,18 +63,15 @@
             window.open("formulariobuscar", "_blank");
         }
     </script>
-   
 </head>
 <body>
-    <h1>Página de Inicio</h1>
+    <h1>Registro empleados grupo 1701</h1>
     <p>¡Bienvenido a nuestra aplicación de gestión de empleados!</p>
 
     <button onclick="abrirformularioagregar()"><i class="fas fa-user-plus"></i> Agregar Empleado</button>
     <button onclick="abrirformulariolistar()"><i class="fas fa-list"></i> Listar Empleados</button>
     <button onclick="abrirformulariobuscar()"><i class="fas fa-search"></i> Buscar Empleado</button>
     <button onclick="abrirformularioactualizar()"><i class="fas fa-edit"></i> Actualizar Empleado</button>
-    <button onclick = "abrirFormulario()"><i class="fas fa-trash-alt"></i> Eliminar Empleado</button>
-
-  
+    <button onclick="abrirFormulario()"><i class="fas fa-trash-alt"></i> Eliminar Empleado</button>
 </body>
 </html>
