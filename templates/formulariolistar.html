@@ -49,12 +49,18 @@
             </tr>
         </thead>
         <tbody>
-           
+            {% for empleado in empleados %}
+            <tr>
+                <td>{{ empleado.id }}</td>
+                <td>{{ empleado.nombre }}</td>
+                <td>{{ empleado.apellidos }}</td>
+                <td>{{ empleado.documento }}</td>
+                <td>{{ empleado.telefono }}</td>
+                <td><img src="data:image/jpeg;base64,{{ empleado.foto }}" width="100" height="100"></td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
-    <script>
-        // script futuro
-    </script>
 </body>
 
 </html>
