@@ -7,9 +7,9 @@ app = Flask(__name__)
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '12345678',
-    'database': 'empleados',
-    "port":"3306"
+    'password': '4321Dios',
+    'database': 'empleado',
+    "port":"3307"
 }
 print(DB_CONFIG)
 
@@ -34,7 +34,7 @@ def eliminar_empleado():
     id_empleado = request.form.get('idEmpleado')
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM empleado WHERE id = %s", (id_empleado,))
+    cursor.execute("DELETE FROM empleados WHERE id = %s", (id_empleado,))
     conn.commit()
     cursor.close()
     conn.close()
@@ -63,7 +63,7 @@ def agregar_empleado():
     
     try:
         # Ejecuta la consulta SQL para insertar el nuevo empleado en la tabla
-        cursor.execute("INSERT INTO empleado (nombre, apellidos, documento, direccion, telefono, foto) VALUES (%s, %s, %s, %s, %s, %s)", (nombre, apellidos, documento, direccion, telefono, foto))
+        cursor.execute("INSERT INTO empleados (nombre, apellidos, documento, direccion, telefono, foto) VALUES (%s, %s, %s, %s, %s, %s)", (nombre, apellidos, documento, direccion, telefono, foto))
         
         # Guarda los cambios en la base de datos
         conn.commit()
@@ -84,7 +84,7 @@ def agregar_empleado():
 def formulariolistar():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT id, nombre, apellidos, documento, telefono, foto FROM empleado")
+    cursor.execute("SELECT id, nombre, apellidos, documento, telefono, foto FROM empleados")
     empleados = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -94,6 +94,36 @@ def formulariolistar():
 @app.route("/formularioactualizar")
 def formularioactualizar():
     return render_template("formularioactualizar.html")
+
+
+#funcion para actualizar 
+@app.route('/actualizar_empleado', methods=['POST'])
+def actualizar_empleado():
+    try:
+        id_empleado = request.form['idEmpleado']
+        campo = request.form['campo']
+        nuevo_valor = request.form['nuevoValor']
+
+        # Conectar a la base de datos
+        cnx = mysql.connector.connect(**DB_CONFIG)
+        cursor = cnx.cursor()
+
+        # Preparar la consulta SQL
+        update_query = f"UPDATE empleados SET {campo} = %s WHERE id = %s"
+        data = (nuevo_valor, id_empleado)
+
+        # Ejecutar la consulta
+        cursor.execute(update_query, data)
+        cnx.commit()
+
+        # Cerrar la conexión
+        cursor.close()
+        cnx.close()
+
+        return 'Empleado actualizado correctamente'
+    except Exception as e:
+        return f'Error al actualizar empleado: {str(e)}'
+
 
 
 @app.route("/formulariobuscar")

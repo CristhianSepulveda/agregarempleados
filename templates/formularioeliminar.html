@@ -10,7 +10,7 @@
     
 </head>
 <body>
-    <form action="/eliminar_empleado" method="POST">
+    <form action="/eliminar_empleado" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este empleado?');">
         <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
         <input type="text" id="idEmpleado" name="idEmpleado"><br>
         <button type="submit"><i class="fas fa-trash-alt"></i> Eliminar Empleado</button>
