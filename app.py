@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
+import base64
 
 app = Flask(__name__)
 
@@ -7,9 +8,9 @@ app = Flask(__name__)
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '4321Dios',
-    'database': 'empleado',
-    "port":"3307"
+    'password': '12345678',
+    'database': 'empleados',
+    "port":"3306"
 }
 print(DB_CONFIG)
 
@@ -34,18 +35,17 @@ def eliminar_empleado():
     id_empleado = request.form.get('idEmpleado')
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM empleados WHERE id = %s", (id_empleado,))
+    cursor.execute("DELETE FROM empleado WHERE id = %s", (id_empleado,))
     conn.commit()
     cursor.close()
     conn.close()
 
-    
-    return redirect(url_for('index'))
-
+    return redirect(request.referrer)  # Redirecciona al usuario a la página anterior
 
 @app.route('/formularioagregar')
 def formularioagregar():
     return render_template('formularioagregar.html')
+
 # Ruta para manejar el formulario y agregar empleado a la base de datos
 @app.route("/agregar_empleado", methods=['POST'])
 def agregar_empleado():
@@ -56,6 +56,7 @@ def agregar_empleado():
     direccion = request.form.get('direccion')
     telefono = request.form.get('telefono')
     foto = request.files['foto'].read()  # Almacena la imagen como datos binarios
+    foto_binario = base64.b64encode(foto)  # Convierte la imagen a binario
 
     # Establece conexión a la base de datos
     conn = get_db_connection()
@@ -63,7 +64,7 @@ def agregar_empleado():
     
     try:
         # Ejecuta la consulta SQL para insertar el nuevo empleado en la tabla
-        cursor.execute("INSERT INTO empleados (nombre, apellidos, documento, direccion, telefono, foto) VALUES (%s, %s, %s, %s, %s, %s)", (nombre, apellidos, documento, direccion, telefono, foto))
+        cursor.execute("INSERT INTO empleado (nombre, apellidos, documento, direccion, telefono, foto) VALUES (%s, %s, %s, %s, %s, %s)", (nombre, apellidos, documento, direccion, telefono, foto))
         
         # Guarda los cambios en la base de datos
         conn.commit()
@@ -72,31 +73,27 @@ def agregar_empleado():
         cursor.close()
         conn.close()
         
-        # Redirecciona al usuario a la página principal después de agregar el empleado
-        return redirect(url_for('index'))
+        # Redirecciona al usuario a la página anterior después de agregar el empleado
+        return redirect(request.referrer)
     except Exception as e:
         # Si ocurre algún error, manejarlo apropiadamente, por ejemplo, mostrar un mensaje de error al usuario
         return render_template('error.html', error=str(e))
-
-
 
 @app.route("/formulariolistar")
 def formulariolistar():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT id, nombre, apellidos, documento, telefono, foto FROM empleados")
+    cursor.execute("SELECT id, nombre, apellidos, documento, telefono, foto FROM empleado")
     empleados = cursor.fetchall()
     cursor.close()
     conn.close()
     return render_template("formulariolistar.html", empleados=empleados)
 
-
 @app.route("/formularioactualizar")
 def formularioactualizar():
     return render_template("formularioactualizar.html")
 
-
-#funcion para actualizar 
+# Función para actualizar empleado
 @app.route('/actualizar_empleado', methods=['POST'])
 def actualizar_empleado():
     try:
@@ -109,7 +106,7 @@ def actualizar_empleado():
         cursor = cnx.cursor()
 
         # Preparar la consulta SQL
-        update_query = f"UPDATE empleados SET {campo} = %s WHERE id = %s"
+        update_query = f"UPDATE empleado SET {campo} = %s WHERE id = %s"
         data = (nuevo_valor, id_empleado)
 
         # Ejecutar la consulta
@@ -124,16 +121,8 @@ def actualizar_empleado():
     except Exception as e:
         return f'Error al actualizar empleado: {str(e)}'
 
-
-
 @app.route("/formulariobuscar")
 def formulariobuscar():
     return render_template("formulariobuscar.html")
-
-
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
