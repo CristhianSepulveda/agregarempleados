@@ -98,8 +98,32 @@ def formularioactualizar():
 
 @app.route("/formulariobuscar")
 def formulariobuscar():
-    return render_template("formulariobuscar.html")
+    # Recibe el ID de empleado del formulario
+    id_empleado = request.form.get('idEmpleado')
 
+    # Establece conexión a la base de datos
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        # Ejecuta la consulta SQL para buscar el empleado por ID
+        cursor.execute("SELECT * FROM empleado WHERE id = %s", (id_empleado,))
+        empleado = cursor.fetchone()  # Obtiene el primer resultado de la consulta
+
+        # Cierra el cursor y la conexión
+        cursor.close()
+        conn.close()
+
+        if empleado:
+            # Si se encuentra el empleado, renderiza la plantilla con los datos
+            return render_template('resultado_busqueda.html', empleado=empleado)
+        else:
+            # Si no se encuentra el empleado, muestra un mensaje de error
+            return render_template('resultado_busqueda.html', mensaje="Empleado no encontrado")
+
+    except Exception as e:
+        # Si ocurre algún error, manejarlo apropiadamente, por ejemplo, mostrar un mensaje de error al usuario
+        return render_template('error.html', error=str(e))
 
 
 
