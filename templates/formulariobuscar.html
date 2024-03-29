@@ -1,10 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Buscar por ID</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .formulario {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f6b;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/stilosformularios.css">
+</head>
+<body>
+    <div class="titulo">Buscar por ID</div>
+    <div class="subtitulo">ID Busqueda - - - Ingresa datos de busqueda </div>
+    <div class="formulario">
+        <form id="buscarEmpleadoForm">
+            <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
+            <input type="text" id="idEmpleado" name="idEmpleado"><br>
+            <button type="submit">Buscar</button>
+        </form>
+        <ul id="resultadoEmpleado"></ul>
+    </div>
+
     <script>
         const form = document.querySelector('#buscarEmpleadoForm');
         const resultadoEmpleado = document.querySelector('#resultadoEmpleado');
@@ -28,13 +103,5 @@
                 });
         });
     </script>
-</head>
-<body>
-    <form id="buscarEmpleadoForm">
-        <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
-        <input type="text" id="idEmpleado" name="idEmpleado"><br>
-        <button type="submit">Buscar</button>
-    </form>
-    <ul id="resultadoEmpleado"></ul>
 </body>
 </html>
