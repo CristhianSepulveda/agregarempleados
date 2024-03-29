@@ -5,16 +5,36 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/stilosformularios.css">
+    <script>
+        const form = document.querySelector('#buscarEmpleadoForm');
+        const resultadoEmpleado = document.querySelector('#resultadoEmpleado');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const idEmpleado = document.querySelector('#idEmpleado').value;
+            fetch(`/buscar_empleado/${idEmpleado}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        resultadoEmpleado.innerHTML = `<li>${data.mensaje}</li>`;
+                    } else {
+                        resultadoEmpleado.innerHTML = `<li>ID: ${data.empleado.id}</li>
+                                                      <li>Nombre: ${data.empleado.nombre}</li>
+                                                      <li>Apellidos: ${data.empleado.apellidos}</li>
+                                                      <li>Documento de Identidad: ${data.empleado.documentoIdentidad}</li>
+                                                      <li>Dirección: ${data.empleado.direccion}</li>
+                                                      <li>Teléfono: ${data.empleado.telefono}</li>`;
+                    }
+                });
+        });
+    </script>
 </head>
 <body>
     <form id="buscarEmpleadoForm">
-        <label for="idEmpleado"><i class="fas fa-id-card"></i> ID del Empleado:</label><br>
+        <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
         <input type="text" id="idEmpleado" name="idEmpleado"><br>
         <button type="submit">Buscar</button>
     </form>
     <ul id="resultadoEmpleado"></ul>
-    <script>
- 
-    </script>
 </body>
 </html>
