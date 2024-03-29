@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+     <!-- Enlaces a las fuentes y estilos CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/stilosformularios.css">
-    <script>
+   <!-- Script para mostrar u ocultar el campo de entrada de foto -->
+   <script>
         function mostrarInputFoto() {
             var campo = document.getElementById("campo");
             var inputFoto = document.getElementById("inputFoto");
@@ -18,9 +20,13 @@
     </script>
 </head>
 <body>
+    <!-- Campo para introducir el ID del empleado que se va a actualizar -->
     <form action="/actualizar_empleado" method="POST">
+        <!-- Campo para introducir el ID del empleado que se va a actualizar -->
         <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de empleado que se va actualizar:</label><br>
         <input type="text" id="idEmpleado" name="idEmpleado"><br>
+
+        <!-- Selección del campo que se desea actualizar -->
         <label for="campo"><i class="fas fa-list"></i> Campo a actualizar:</label><br>
         <select id="campo" name="campo" onchange="mostrarInputFoto()">
             <option value="nombre">Nombre</option>
@@ -31,11 +37,13 @@
             <option value="foto">Foto</option>
         </select><br>
         <div id="inputFoto" style="display: none;">
+            <!-- Campo de entrada para la nueva foto (se mostrará solo si se selecciona 'foto' en el campo anterior) -->
             <label for="nuevoValorFoto"><i class="fas fa-camera"></i> Nueva foto:</label><br>
             <input type="file" id="nuevoValorFoto" name="nuevoValorFoto"><br>
-        </div>
+        </div><!-- Campo de entrada para el nuevo valor del campo seleccionado -->
         <label for="nuevoValor"><i class="fas fa-edit"></i> Nuevo valor:</label><br>
         <input type="text" id="nuevoValor" name="nuevoValor"><br>
+        <!-- Botón para enviar el formulario y actualizar la información del empleado -->
         <button type="submit">Actualizar <i class="fas fa-sync-alt"></i></button>
 
 

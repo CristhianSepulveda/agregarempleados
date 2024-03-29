@@ -12,7 +12,7 @@ DB_CONFIG = {
     "port":"3307"
 }
 print(DB_CONFIG)
-
+# Función para establecer la conexión a la base de datos MySQL
 def get_db_connection():
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
@@ -20,15 +20,17 @@ def get_db_connection():
     except mysql.connector.Error as e:
         print(f"Error de conexión a la base de datos: {e}")
         return None
-
+# Ruta principal del sitio web
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# Ruta para mostrar el formulario de eliminación
 @app.route('/formularioeliminar')
 def formularioeliminar():
     return render_template('formularioeliminar.html')
 
+# Ruta para eliminar un empleado (maneja solicitudes POST)
 @app.route('/eliminar_empleado', methods=['POST'])
 def eliminar_empleado():
     id_empleado = request.form.get('idEmpleado')
@@ -79,7 +81,7 @@ def agregar_empleado():
         return render_template('error.html', error=str(e))
 
 
-
+# Definición de la ruta '/formulariolistar'
 @app.route("/formulariolistar")
 def formulariolistar():
     conn = get_db_connection()
@@ -134,6 +136,6 @@ def formulariobuscar():
 
 
 
-
+# Punto de entrada de la aplicación Flask
 if __name__ == '__main__':
     app.run(debug=True)

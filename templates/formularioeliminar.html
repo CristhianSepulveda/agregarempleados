@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+      <!-- Enlaces a las fuentes y estilos CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
@@ -10,9 +11,12 @@
     
 </head>
 <body>
+    <!-- Formulario para eliminar un empleado -->
     <form action="/eliminar_empleado" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este empleado?');">
+        <!-- Campo para introducir el ID del empleado que se desea eliminar -->
         <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
         <input type="text" id="idEmpleado" name="idEmpleado"><br>
+        <!-- Botón para enviar el formulario y eliminar el empleado -->
         <button type="submit"><i class="fas fa-trash-alt"></i> Eliminar Empleado</button>
     </form>
     

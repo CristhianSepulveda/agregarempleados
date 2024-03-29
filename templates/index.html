@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+    <!-- Enlaces a las fuentes y estilos CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Estilos css -->
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -57,6 +59,8 @@
             background-color: #2980b9;
         }
     </style>
+
+    <!-- funciones javaScript para habrir los formularios-->
     <script>
         function abrirFormulario() {
             window.open("formularioeliminar", "_blank");
@@ -80,15 +84,18 @@
     </script>
 </head>
 <body>
+    <!-- Encabezado -->
     <h1>Registro empleados</h1>
     <p>¡Bienvenido a nuestra aplicación de gestión de empleados!</p>
 
+    <!-- Botones para acceder a diferentes funcionalidades -->
     <button onclick="abrirformularioagregar()"><i class="fas fa-user-plus"></i> Agregar Empleado</button>
     <button onclick="abrirformulariolistar()"><i class="fas fa-list"></i> Listar Empleados</button>
     <button onclick="abrirformulariobuscar()"><i class="fas fa-search"></i> Buscar Empleado</button>
     <button onclick="abrirformularioactualizar()"><i class="fas fa-edit"></i> Actualizar Empleado</button>
     <button onclick="abrirFormulario()"><i class="fas fa-trash-alt"></i> Eliminar Empleado</button>
 
+      <!-- Información del grupo -->
     <div class="grupo-info">
         <h2>Grupo 1701</h2>
         <p class="integrantes">
