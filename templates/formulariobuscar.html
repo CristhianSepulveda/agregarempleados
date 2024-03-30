@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Enlaces a recursos externos: Font Awesome y Google Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+    <!-- Enlace al archivo CSS externo para estilos adicionales del formulario -->
     <link rel="stylesheet" href="/static/css/stilosformularios.css">
+    <!-- Script JavaScript -->
     <script>
+        // Selecciona el formulario y el elemento donde se mostrará el resultado
         const form = document.querySelector('#buscarEmpleadoForm');
         const resultadoEmpleado = document.querySelector('#resultadoEmpleado');
 
+        // Evento de envío del formulario
         form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const idEmpleado = document.querySelector('#idEmpleado').value;
+            e.preventDefault(); // Evita que el formulario se envíe normalmente
+            const idEmpleado = document.querySelector('#idEmpleado').value; // Obtiene el valor del campo de entrada de ID de empleado
+            // Realiza una solicitud al servidor para buscar al empleado por su ID
             fetch(`/buscar_empleado/${idEmpleado}`)
-                .then(response => response.json())
+                .then(response => response.json()) // Convierte la respuesta a formato JSON
                 .then(data => {
-                    if (data.error) {
+                    if (data.error) { // Si hay un error, muestra un mensaje de error
                         resultadoEmpleado.innerHTML = `<li>${data.mensaje}</li>`;
-                    } else {
+                    } else { // Si no hay error, muestra la información del empleado
                         resultadoEmpleado.innerHTML = `<li>ID: ${data.empleado.id}</li>
                                                       <li>Nombre: ${data.empleado.nombre}</li>
                                                       <li>Apellidos: ${data.empleado.apellidos}</li>
@@ -30,11 +36,13 @@
     </script>
 </head>
 <body>
+    <!-- Formulario para buscar empleados por ID -->
     <form id="buscarEmpleadoForm">
         <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
         <input type="text" id="idEmpleado" name="idEmpleado"><br>
-        <button type="submit">Buscar</button>
+        <button type="submit">Buscar</button> <!-- Botón de envío del formulario -->
     </form>
+    <!-- Lista para mostrar el resultado de la búsqueda del empleado -->
     <ul id="resultadoEmpleado"></ul>
 </body>
 </html>

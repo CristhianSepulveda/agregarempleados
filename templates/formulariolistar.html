@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enlaces a recursos externos: Font Awesome y Google Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
@@ -11,35 +12,39 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
         rel="stylesheet">
+    <!-- Enlace al archivo CSS externo para estilos adicionales -->
     <link rel="stylesheet" href="/static/css/estilosagregar.css">
+    <!-- Estilos en línea -->
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 20px;
+            font-family: 'Montserrat', sans-serif; /* Establece la fuente para el cuerpo */
+            margin: 20px; /* Añade un margen alrededor del cuerpo */
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            width: 100%; /* Establece el ancho de la tabla al 100% */
+            border-collapse: collapse; /* Colapsa los bordes de las celdas */
+            margin-top: 20px; /* Añade un margen superior */
         }
 
         th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
+            border: 1px solid #dddddd; /* Establece un borde sólido de 1px */
+            text-align: left; /* Alinea el texto a la izquierda */
+            padding: 8px; /* Añade relleno de 8px */
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #f2f2f2; /* Establece un color de fondo para las celdas de encabezado */
         }
     </style>
 </head>
 
 <body>
+    <!-- Tabla para mostrar la lista de empleados -->
     <table id="tablaEmpleados">
         <thead>
             <tr>
+                <!-- Encabezados de la tabla -->
                 <th>ID de Empleado</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
@@ -49,14 +54,15 @@
             </tr>
         </thead>
         <tbody>
+            <!-- Ciclo para iterar sobre cada empleado y mostrar sus detalles en la tabla -->
             {% for empleado in empleados %}
             <tr>
-                <td>{{ empleado.id }}</td>
-                <td>{{ empleado.nombre }}</td>
-                <td>{{ empleado.apellidos }}</td>
-                <td>{{ empleado.documento }}</td>
-                <td>{{ empleado.telefono }}</td>
-                <td><img src="data:image/jpeg;base64,{{ empleado.foto }}" width="100" height="100"></td>
+                <td>{{ empleado.id }}</td> <!-- Muestra el ID del empleado -->
+                <td>{{ empleado.nombre }}</td> <!-- Muestra el nombre del empleado -->
+                <td>{{ empleado.apellidos }}</td> <!-- Muestra los apellidos del empleado -->
+                <td>{{ empleado.documento }}</td> <!-- Muestra el documento de identidad del empleado -->
+                <td>{{ empleado.telefono }}</td> <!-- Muestra el teléfono del empleado -->
+                <td><img src="data:image/jpeg;base64,{{ empleado.foto }}" width="100" height="100"></td> <!-- Muestra la foto del empleado -->
             </tr>
             {% endfor %}
         </tbody>
