@@ -1,48 +1,121 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Enlaces a recursos externos: Font Awesome y Google Fonts -->
+    <title>Buscar por ID</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .formulario {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f6b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .foto-empleado {
+            width: 100px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
-    <!-- Enlace al archivo CSS externo para estilos adicionales del formulario -->
-    <link rel="stylesheet" href="/static/css/stilosformularios.css">
-    <!-- Script JavaScript -->
-    <script>
-        // Selecciona el formulario y el elemento donde se mostrará el resultado
-        const form = document.querySelector('#buscarEmpleadoForm');
-        const resultadoEmpleado = document.querySelector('#resultadoEmpleado');
+</head>
+<body>
+    <div class="titulo">Buscar por ID</div>
+    <div class="subtitulo">ID Busqueda - - - Ingresa datos de busqueda </div>
+    <div class="formulario">
+        <form id="buscarEmpleadoForm">
+            <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
+            <input type="text" id="idEmpleado" name="idEmpleado"><br>
+            <button type="submit">Buscar</button>
+        </form>
+        <table id="tablaEmpleado"></table>
+    </div>
 
-        // Evento de envío del formulario
+    <script>
+        const form = document.querySelector('#buscarEmpleadoForm');
+        const tablaEmpleado = document.querySelector('#tablaEmpleado');
+
         form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Evita que el formulario se envíe normalmente
-            const idEmpleado = document.querySelector('#idEmpleado').value; // Obtiene el valor del campo de entrada de ID de empleado
-            // Realiza una solicitud al servidor para buscar al empleado por su ID
+            e.preventDefault();
+            const idEmpleado = document.querySelector('#idEmpleado').value;
             fetch(`/buscar_empleado/${idEmpleado}`)
-                .then(response => response.json()) // Convierte la respuesta a formato JSON
+                .then(response => response.json())
                 .then(data => {
-                    if (data.error) { // Si hay un error, muestra un mensaje de error
-                        resultadoEmpleado.innerHTML = `<li>${data.mensaje}</li>`;
-                    } else { // Si no hay error, muestra la información del empleado
-                        resultadoEmpleado.innerHTML = `<li>ID: ${data.empleado.id}</li>
-                                                      <li>Nombre: ${data.empleado.nombre}</li>
-                                                      <li>Apellidos: ${data.empleado.apellidos}</li>
-                                                      <li>Documento de Identidad: ${data.empleado.documentoIdentidad}</li>
-                                                      <li>Dirección: ${data.empleado.direccion}</li>
-                                                      <li>Teléfono: ${data.empleado.telefono}</li>`;
+                    if (data.error) {
+                        tablaEmpleado.innerHTML = `<tr><td colspan="2">${data.mensaje}</td></tr>`;
+                    } else {
+                        tablaEmpleado.innerHTML = `<tr><th>ID</th><td>${data.empleado.id}</td></tr>
+                                                  <tr><th>Nombre</th><td>${data.empleado.nombre}</td></tr>
+                                                  <tr><th>Apellidos</th><td>${data.empleado.apellidos}</td></tr>
+                                                  <tr><th>Documento de Identidad</th><td>${data.empleado.documento}</td></tr>
+                                                  <tr><th>Dirección</th><td>${data.empleado.direccion}</td></tr>
+                                                  <tr><th>Teléfono</th><td>${data.empleado.telefono}</td></tr>
+                                                  <tr><th>Foto</th><td><img src="${data.empleado.foto}" class="foto-empleado" alt="Foto de empleado"></td></tr>`;
                     }
                 });
         });
     </script>
-</head>
-<body>
-    <!-- Formulario para buscar empleados por ID -->
-    <form id="buscarEmpleadoForm">
-        <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
-        <input type="text" id="idEmpleado" name="idEmpleado"><br>
-        <button type="submit">Buscar</button> <!-- Botón de envío del formulario -->
-    </form>
-    <!-- Lista para mostrar el resultado de la búsqueda del empleado -->
-    <ul id="resultadoEmpleado"></ul>
 </body>
 </html>

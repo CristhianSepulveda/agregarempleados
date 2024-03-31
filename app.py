@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import mysql.connector
+import base64
 
 app = Flask(__name__)
 
@@ -128,9 +129,39 @@ def actualizar_empleado():
 
 
 
+
+# Ruta para renderizar el formulario de búsqueda
 @app.route("/formulariobuscar")
 def formulariobuscar():
     return render_template("formulariobuscar.html")
+
+@app.route('/buscar_empleado/<int:id_empleado>')
+def buscar_empleado(id_empleado):
+    try:
+        # Conexión a la base de datos
+        connection = mysql.connector.connect(**DB_CONFIG)
+        cursor = connection.cursor(dictionary=True)
+
+        # Consulta para obtener los datos del empleado por su ID
+        query = "SELECT id, nombre, apellidos, documento, direccion, telefono, foto FROM empleados WHERE id = %s"
+        cursor.execute(query, (id_empleado,))
+        empleado = cursor.fetchone()
+
+        # Cerrando la conexión a la base de datos
+        cursor.close()
+        connection.close()
+
+        if empleado:
+            # Convertir el campo 'foto'
+            if empleado.get('foto'):
+                foto_base64 = base64.b64encode(empleado['foto']).decode('utf-8')
+                empleado['foto'] = f"data:image/jpeg;base64,{foto_base64}"
+            return jsonify({'empleado': empleado})
+        else:
+            return jsonify({'error': True, 'mensaje': 'Empleado no encontrado'})
+    except Exception as e:
+        return jsonify({'error': True, 'mensaje': str(e)})
+
 
 
 
