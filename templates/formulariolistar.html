@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de empleados</title>
     <!-- Enlaces a recursos externos: Font Awesome y Google Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
@@ -12,8 +12,6 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
         rel="stylesheet">
-    <!-- Enlace al archivo CSS externo para estilos adicionales -->
-    <link rel="stylesheet" href="/static/css/estilosagregar.css">
     <!-- Estilos en línea -->
     <style>
         body {
@@ -36,10 +34,17 @@
         th {
             background-color: #f2f2f2; /* Establece un color de fondo para las celdas de encabezado */
         }
+
+        .foto-empleado {
+            width: 100px;
+            height: auto;
+        }
     </style>
 </head>
 
 <body>
+    <h1>Lista de empleados</h1>
+
     <!-- Tabla para mostrar la lista de empleados -->
     <table id="tablaEmpleados">
         <thead>
@@ -62,11 +67,15 @@
                 <td>{{ empleado.apellidos }}</td> <!-- Muestra los apellidos del empleado -->
                 <td>{{ empleado.documento }}</td> <!-- Muestra el documento de identidad del empleado -->
                 <td>{{ empleado.telefono }}</td> <!-- Muestra el teléfono del empleado -->
-                <td><img src="data:image/jpeg;base64,{{ empleado.foto }}" width="100" height="100"></td> <!-- Muestra la foto del empleado -->
+                <!-- Asegurémonos de que la imagen se muestre correctamente -->
+                {% if empleado.foto %}
+                <td><img src="{{ empleado.foto }}" class="foto-empleado" alt="Foto de empleado"></td> <!-- Muestra la foto del empleado -->
+                {% else %}
+                <td>No hay foto disponible</td> <!-- Mostrar mensaje si no hay foto disponible -->
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </body> 
-
 </html>
