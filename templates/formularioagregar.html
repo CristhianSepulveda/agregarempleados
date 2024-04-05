@@ -2,8 +2,9 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <!-- Define el conjunto de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Controla la visualización en dispositivos móviles -->
+    <!-- Enlaces a recursos externos: Font Awesome y Google Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
@@ -11,52 +12,71 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
         rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/stilosformularios.css">
+    <!-- Enlace al archivo CSS externo para estilos adicionales del formulario -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stilosformularios.css') }}">
+    <!-- Estilos en línea -->
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', sans-serif; /* Establece la familia de fuente para el cuerpo */
         }
 
         form {
-            max-width: 400px;
-            margin: 0 auto;
+            max-width: 400px; /* Establece el ancho máximo del formulario */
+            margin: 0 auto; /* Centra el formulario horizontalmente */
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
+            display: block; /* Muestra las etiquetas como bloques */
+            margin-bottom: 8px; /* Añade un margen inferior a las etiquetas */
         }
 
         input,
         button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
+            width: 100%; /* Establece el ancho al 100% */
+            padding: 10px; /* Añade relleno de 10px */
+            margin-bottom: 16px; /* Añade un margen inferior */
+            box-sizing: border-box; /* Incluye el relleno y el borde en el ancho total */
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
+            /* Estilos para el botón */
+            background-color: #4CAF50; /* Color de fondo verde */
+            color: white; /* Color de texto blanco */
+            border: none; /* Sin borde */
+            padding: 10px 20px; /* Relleno */
+            text-align: center; /* Alineación del texto al centro */
+            text-decoration: none; /* Sin decoración de texto */
+            display: inline-block; /* Mostrar como un bloque en línea */
+            font-size: 16px; /* Tamaño de la fuente */
+            margin: 4px 2px; /* Márgenes */
+            cursor: pointer; /* Cambia el cursor a un puntero al pasar por encima */
+            border-radius: 4px; /* Borde redondeado */
+        }
+
+        /* Estilos específicos para el botón Submit */
+        input[type="submit"] {
+            /* Estilos adicionales para el botón de envío */
+            background-color: #4CAF50; /* Cambiar color a verde */
+            color: black; /* Cambiar color de letra a negro */
+            font-weight: bold; /* Hacer la letra en negrita */
+            border: none; /* Sin borde */
+            padding: 10px 20px; /* Relleno */
+            text-align: center; /* Alineación del texto al centro */
+            text-decoration: none; /* Sin decoración de texto */
+            display: inline-block; /* Mostrar como un bloque en línea */
+            font-size: 16px; /* Tamaño de la fuente */
+            margin: 4px 2px; /* Márgenes */
+            cursor: pointer; /* Cambia el cursor a un puntero al pasar por encima */
+            border-radius: 4px; /* Borde redondeado */
         }
     </style>
 </head>
 
 <body>
-
-    <form action="/agregar_empleado" method="POST">
-        <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label>
-        <input type="text" id="idEmpleado" name="idEmpleado">
-
+    <!-- Formulario para agregar empleados -->
+    <form action="/agregar_empleado" method="POST" enctype="multipart/form-data">
+        <!-- Etiquetas y campos de entrada para la información del empleado -->
+       
         <label for="nombre"><i class="fas fa-user"></i> Nombre:</label>
         <input type="text" id="nombre" name="nombre">
 
@@ -72,11 +92,10 @@
         <label for="telefono"><i class="fas fa-phone"></i> Teléfono:</label>
         <input type="tel" id="telefono" name="telefono">
 
-        <label for="foto"><i class="fas fa-camera"></i> Foto:</label>
-        <input type="file" id="foto" name="foto">
+        <label for="foto">Foto:</label>
+        <input type="file" id="foto" name="foto" accept="image/*" required> <!-- Campo de entrada para cargar una foto -->
 
-        <input type="submit" value="Submit">
-        <button type="button" id="agregar"><i class="fas fa-user-plus"></i> Agregar</button>
+        <input type="submit" value="AGREGAR"> <!-- Botón de envío -->
     </form>
 
 </body>

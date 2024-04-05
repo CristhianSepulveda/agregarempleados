@@ -1,13 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Buscar por ID</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .formulario {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f6b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .foto-empleado {
+            width: 100px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/stilosformularios.css">
+</head>
+<body>
+    <div class="titulo">Buscar por ID</div>
+    <div class="subtitulo">ID Busqueda - - - Ingresa datos de busqueda </div>
+    <div class="formulario">
+        <form id="buscarEmpleadoForm">
+            <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
+            <input type="text" id="idEmpleado" name="idEmpleado"><br>
+            <button type="submit">Buscar</button>
+        </form>
+        <table id="tablaEmpleado"></table>
+    </div>
+
     <script>
         const form = document.querySelector('#buscarEmpleadoForm');
-        const resultadoEmpleado = document.querySelector('#resultadoEmpleado');
+        const tablaEmpleado = document.querySelector('#tablaEmpleado');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -16,25 +104,18 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
-                        resultadoEmpleado.innerHTML = `<li>${data.mensaje}</li>`;
+                        tablaEmpleado.innerHTML = `<tr><td colspan="2">${data.mensaje}</td></tr>`;
                     } else {
-                        resultadoEmpleado.innerHTML = `<li>ID: ${data.empleado.id}</li>
-                                                      <li>Nombre: ${data.empleado.nombre}</li>
-                                                      <li>Apellidos: ${data.empleado.apellidos}</li>
-                                                      <li>Documento de Identidad: ${data.empleado.documentoIdentidad}</li>
-                                                      <li>Dirección: ${data.empleado.direccion}</li>
-                                                      <li>Teléfono: ${data.empleado.telefono}</li>`;
+                        tablaEmpleado.innerHTML = `<tr><th>ID</th><td>${data.empleado.id}</td></tr>
+                                                  <tr><th>Nombre</th><td>${data.empleado.nombre}</td></tr>
+                                                  <tr><th>Apellidos</th><td>${data.empleado.apellidos}</td></tr>
+                                                  <tr><th>Documento de Identidad</th><td>${data.empleado.documento}</td></tr>
+                                                  <tr><th>Dirección</th><td>${data.empleado.direccion}</td></tr>
+                                                  <tr><th>Teléfono</th><td>${data.empleado.telefono}</td></tr>
+                                                  <tr><th>Foto</th><td><img src="${data.empleado.foto}" class="foto-empleado" alt="Foto de empleado"></td></tr>`;
                     }
                 });
         });
     </script>
-</head>
-<body>
-    <form id="buscarEmpleadoForm">
-        <label for="idEmpleado"><i class="fas fa-id-card"></i> ID de Empleado:</label><br>
-        <input type="text" id="idEmpleado" name="idEmpleado"><br>
-        <button type="submit">Buscar</button>
-    </form>
-    <ul id="resultadoEmpleado"></ul>
 </body>
 </html>
